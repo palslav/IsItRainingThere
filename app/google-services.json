@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "195248307029",
+    "firebase_url": "https://isitrainingthere.firebaseio.com",
+    "project_id": "isitrainingthere",
+    "storage_bucket": "isitrainingthere.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195248307029:android:02dd612b45ed895b",
+        "android_client_info": {
+          "package_name": "com.pals.isitrainingthere"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "195248307029-6jplk9unjdpj9mp400mg8f8vih1rughm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pals.isitrainingthere",
+            "certificate_hash": "0a57f36d196c7435b0251013e0a4e1e843365e2b"
+          }
+        },
+        {
+          "client_id": "195248307029-fu8mk842h757rtfnui28hje1uf20joq4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDECbDFQuv1A7Fz0KyvRaoLsJ60zVr1t2M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "195248307029-fu8mk842h757rtfnui28hje1uf20joq4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

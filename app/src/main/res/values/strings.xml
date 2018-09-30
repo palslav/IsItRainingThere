@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">IsItRainingThere?</string>
+    <string name="hi_is_it_raining_there_in">Hi, is it Raining there in :</string>
+    <string name="enter_location_for_inquiry">Enter location for inquiry</string>
+    <string name="ex_marathalli">Ex: Marathalli</string>
+    <string name="send">Send</string>
+</resources>
