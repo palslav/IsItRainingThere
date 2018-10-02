@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="profile_data_text" >
+        <item name="android:textColor">#c5c5c5</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
 </resources>

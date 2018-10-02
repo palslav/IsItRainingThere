@@ -4,4 +4,12 @@
     <string name="enter_location_for_inquiry">Enter location for inquiry</string>
     <string name="ex_marathalli">Ex: Marathalli</string>
     <string name="send">Send</string>
+    <string name="user_name">User Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="password">Password</string>
+    <string name="email_id">Email Id</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 </resources>
