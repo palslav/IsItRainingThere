@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "195248307029-fn1tibsucn3al59uh7muccgrf9v49oe8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pals.isitrainingthere",
+            "certificate_hash": "cf05ac3f43b797f4301c77cc6251fb5993d33b8c"
+          }
+        },
+        {
           "client_id": "195248307029-fu8mk842h757rtfnui28hje1uf20joq4.apps.googleusercontent.com",
           "client_type": 3
         }

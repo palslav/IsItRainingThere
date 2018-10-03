@@ -4,14 +4,12 @@ public class Users {
     String userName;
     String emailId;
     String password;
-    String confPassword;
     String gender;
 
-    public Users(String userName, String emailId, String password, String confPassword, String gender) {
+    public Users(String userName, String emailId, String password, String gender) {
         this.userName = userName;
         this.emailId = emailId;
         this.password = password;
-        this.confPassword = confPassword;
         this.gender = gender;
     }
 
@@ -37,14 +35,6 @@ public class Users {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getConfPassword() {
-        return confPassword;
-    }
-
-    public void setConfPassword(String confPassword) {
-        this.confPassword = confPassword;
     }
 
     public String getGender() {

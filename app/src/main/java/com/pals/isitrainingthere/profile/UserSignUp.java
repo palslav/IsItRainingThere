@@ -2,6 +2,7 @@ package com.pals.isitrainingthere.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.app.Activity;
 import android.view.View;
@@ -9,15 +10,25 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.pals.isitrainingthere.R;
 import com.pals.isitrainingthere.model.Users;
 
 public class UserSignUp extends AppCompatActivity implements View.OnClickListener  {
 
-    EditText etName, etEmailId, etPassword, etConfPassword;
-    ImageButton ibNext;
-    RadioGroup rgGender;
+    private EditText etName, etEmailId, etPassword, etConfPassword;
+    private ImageButton ibNext;
+    private RadioGroup rgGender;
+    String name, emailId, password, confPassword, gender;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +40,9 @@ public class UserSignUp extends AppCompatActivity implements View.OnClickListene
         etPassword = (EditText) findViewById(R.id.et_password);
         etConfPassword = (EditText) findViewById(R.id.et_conf_password);
         rgGender = (RadioGroup) findViewById(R.id.radio_gender);
-
         ibNext = (ImageButton) findViewById(R.id.ib_next);
+
+        mAuth = FirebaseAuth.getInstance();
 
         ibNext.setOnClickListener(this);
     }
@@ -38,7 +50,31 @@ public class UserSignUp extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View view) {
         if(view.getId()==R.id.ib_next){
-            onNextButtonClicked();
+            if(isValidate()) {
+                onNextButtonClicked();
+                //startActivity(new Intent(UserSignUp.this, UserSignIn.class));
+            }
+            return;
+        }
+    }
+
+    public boolean isValidate(){
+
+        name = etName.getText().toString();
+        emailId = etEmailId.getText().toString();
+        password = etPassword.getText().toString();
+        confPassword = etConfPassword.getText().toString();
+        int selectedGender = rgGender.getCheckedRadioButtonId();
+        RadioButton rb =  (findViewById(selectedGender));
+        gender = "Male";
+        if (rb != null)  {
+            gender = rb.getText().toString();
+        }
+        if(password.equals(confPassword))
+            return true;
+        else {
+            Toast.makeText(this, "Passwords doesn't match", Toast.LENGTH_SHORT).show();
+            return false;
         }
     }
 
@@ -55,29 +91,36 @@ public class UserSignUp extends AppCompatActivity implements View.OnClickListene
 
     private void onNextButtonClicked() {
 
-        String name = etName.getText().toString();
-        String emailId = etEmailId.getText().toString();
-        String password = etPassword.getText().toString();
-        String confPassword = etConfPassword.getText().toString();
-        int selectedGender = rgGender.getCheckedRadioButtonId();
-        RadioButton rb =  (findViewById(selectedGender));
-        String gender = "Male";
-        if (rb != null)  {
-            gender = rb.getText().toString();
-        }
         /*if (name.isEmpty())  {
             etName.setHint("Please Enter Valid name");
             return;
-        }
-        if (address.isEmpty())  {
-            etAddress.setHint("Please Enter Valid Address");
-            return;
-        }
-        if (lisence.isEmpty())  {
-            etLicense.setHint("Please Enter Valid Lisence");
-            return;
         }*/
-        Users user = new Users(name, emailId, password, confPassword, gender);
+
+        mAuth.createUserWithEmailAndPassword(emailId, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    final FirebaseUser firebaseUser = task.getResult().getUser();
+                    if(firebaseUser != null){
+
+                        mAuth.signInWithEmailAndPassword(emailId, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if(task.isSuccessful()){
+                                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+                                    databaseReference = databaseReference.child(firebaseUser.getUid());
+
+                                    Users user = new Users(name, emailId, password, gender);
+
+                                    databaseReference.setValue(user);
+
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
 
         //Intent nextIntent = new Intent(this, ProfileSetupComplete.class);
         //startActivityForResult(nextIntent, 1001);
